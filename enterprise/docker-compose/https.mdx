@@ -5,15 +5,17 @@ description: Run the Docker Compose stack on a Linux VM and serve it over HTTPS 
 icon: lock
 ---
 
-Run the [Docker Compose](/enterprise/docker-compose) stack on a Linux VM and serve it over HTTPS at
-your own domain. Use a free certificate from Let's Encrypt, or provide your own.
+This guide runs the [Docker Compose](/enterprise/docker-compose) stack on a Linux VM and serves it
+over HTTPS at your own domain. Caddy handles HTTPS. Caddy can get a certificate from Let's Encrypt
+automatically, or it can use a certificate that you provide.
 
 ## Prerequisites
 
-- The [Docker Compose prerequisites](/enterprise/docker-compose#prerequisites)
 - A Linux VM with at least 4 CPUs, 16 GB of memory, and 100 GB of disk
+- [Docker Engine](https://docs.docker.com/engine/install/) with the Compose plugin, and Git
 - A domain name for OpenHands, such as `openhands.example.com`
 - Ports 80 and 443 open to your users
+- An API key from your LLM provider
 
 ## Install
 
@@ -42,8 +44,9 @@ your own domain. Use a free certificate from Let's Encrypt, or provide your own.
         AGENT_CANVAS_LOCK_TO_CLOUD=https://openhands.example.com
         ```
 
-        The stack gets a certificate from Let's Encrypt when it starts and renews it
-        automatically. Make sure the VM is reachable from the internet on port 80 or 443.
+        Caddy gets a certificate from Let's Encrypt when the stack starts and renews it
+        automatically. Let's Encrypt must be able to reach the VM from the internet on port 80 or
+        443.
       </Tab>
       <Tab title="Your own certificate">
         ```bash .env
@@ -61,12 +64,13 @@ your own domain. Use a free certificate from Let's Encrypt, or provide your own.
         cp /path/to/privkey.pem certs/key.pem
         ```
 
-        Use a certificate from a public certificate authority, and include the full chain in
-        `cert.pem`.
+        The certificate must be issued by a public certificate authority, and `cert.pem` must
+        contain the full certificate chain.
       </Tab>
     </Tabs>
 
-    With `COMPOSE_FILE` set, the upgrade and reset commands on the
+    `COMPOSE_FILE` adds a Caddy service that serves HTTPS on ports 80 and 443. Docker Compose
+    reads this file on every command, so the commands on the
     [Docker Compose](/enterprise/docker-compose) page work without changes.
   </Step>
   <Step title="Start the stack">
@@ -80,10 +84,10 @@ your own domain. Use a free certificate from Let's Encrypt, or provide your own.
   </Step>
 </Steps>
 
-## Replace your certificate
+## Replace Your Certificate
 
-To renew your own certificate, copy the new files to `certs/cert.pem` and `certs/key.pem`, then
-restart the HTTPS service:
+If you use your own certificate, copy the new files to `certs/cert.pem` and `certs/key.pem`, then
+restart Caddy:
 
 ```bash
 docker compose restart https

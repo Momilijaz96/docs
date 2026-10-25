@@ -11,8 +11,8 @@ don't need to open any ports.
 ## Prerequisites
 
 - The [Docker Compose prerequisites](/enterprise/docker-compose#prerequisites)
-- ngrok, installed and connected to your account (steps 1 and 2 of the
-  [ngrok quickstart](https://ngrok.com/docs/gateway/endpoints/agent-cli-quickstart))
+- ngrok, installed and connected to your ngrok account. Follow steps 1 and 2 of the
+  [ngrok Agent CLI Quickstart](https://ngrok.com/docs/gateway/endpoints/agent-cli-quickstart).
 - Your ngrok domain. Every ngrok account includes a free dev domain, such as
   `example-name.ngrok-free.app`. You can find it on the [Domains](https://dashboard.ngrok.com/domains)
   page of the ngrok dashboard.
@@ -46,10 +46,11 @@ don't need to open any ports.
     ngrok http 3100 --url https://example-name.ngrok-free.app
     ```
 
-    Leave this command running. The stack is available at your domain while it runs.
+    ngrok serves the stack at your domain while this command runs. Keep it running.
   </Step>
   <Step title="Complete onboarding">
     Open your ngrok URL and follow the onboarding flow to create your first user and configure
-    your LLM provider. If ngrok shows a warning page, click **Visit**.
+    your LLM provider. On a free ngrok account, ngrok shows a warning page first. Click **Visit**
+    to continue.
   </Step>
 </Steps>
