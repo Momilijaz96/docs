@@ -142,6 +142,21 @@ Match the event to the severity of your findings:
 - Check that internal links use absolute doc paths (e.g., `/overview/quickstart`)
 - Verify code blocks with file references use the correct sync format (see `sdk-guidelines.md`)
 
+### Make the reader the actor
+
+Write task-oriented sentences around what the reader does, not what a tool or product does. Put
+the reader's action or goal first, usually as an imperative ("Use X to…", "Give X…", "Run X…").
+Flag sentences where a tool or product is the subject and the reader is left out, especially in
+intros and step descriptions.
+
+| Avoid | Prefer |
+|-------|--------|
+| ngrok gives the Docker Compose stack a public HTTPS URL. | Use ngrok to give the Docker Compose stack a public HTTPS URL. |
+| The Docker Compose stack runs OpenHands Enterprise on a single machine. | Use Docker Compose to run OpenHands Enterprise on a single machine. |
+
+Describing what a component is, for example on an architecture page, is fine with the component as
+the subject. This rule applies when the sentence is about a task the reader performs.
+
 ### SDK guide file naming convention
 
 SDK guide files under `sdk/guides/` **must** use a category prefix:
